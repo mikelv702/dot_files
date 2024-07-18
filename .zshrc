@@ -16,7 +16,7 @@ set_red_prompt_background () {
   if [[ ${(%):-%M} = *PROD* ]]; then
     PS1="%F{green}%K{red}PROD%k [%B%n:%m%b] %~%f>"
   else
-    PS1="%F{green}[%B%n:%m%b] %~%f>"
+    PS1="%F{green}[%B%n:%m%b]%(3~|.../%2~|%~)>"
   fi
 }
 
