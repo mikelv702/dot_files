@@ -1,5 +1,10 @@
 # My ZSHRC file
 
+if [ -f ~/.motd ]; then
+    cat ~/.motd
+    echo ""  # Add a blank line after the MOTD for better readability
+fi
+
 source $HOME/.aliases
 source $HOME/.bash_functions
 # Default Prompt

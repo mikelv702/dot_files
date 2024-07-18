@@ -11,7 +11,7 @@ copy_dot_files() {
     echo "Copying dot files..."
     for file in "$script_dir"/.*; do
         if [ -f "$file" ] && [ "$(basename "$file")" != "." ] && [ "$(basename "$file")" != ".." ]; then
-            cp -iv "$file" "$dest_dir"
+            cp -v "$file" "$dest_dir"
         fi
     done
 }
@@ -24,7 +24,7 @@ copy_directories() {
     
     for dir in "${directories[@]}"; do
         if [ -d "$script_dir/$dir" ]; then
-            cp -riv "$script_dir/$dir" "$dest_dir"
+            cp -rv "$script_dir/$dir" "$dest_dir"
         else
             echo "Directory $dir not found in $script_dir"
         fi
