@@ -1,0 +1,17 @@
+alias bye=logout
+alias h=history
+alias jobs='jobs -l'
+alias lf='ls -algF'
+alias gh='history|grep'
+alias count='find . -type f | wc -l'
+alias log=logout
+alias cls=clear
+alias edit=$EDITOR
+alias rt="source ~/.zshrc"
+alias st="cp .zshrc ~/.zshrc"
+
+alias k=kubectl
+
+alias gs="git status"
+alias gc="git commit -m"
+alias ga="git add"
