@@ -23,7 +23,7 @@ copy_directories() {
     directories=(".vim")
     
     for dir in "${directories[@]}"; do
-        if [ -d "$script_dir/$dir" ]; then
+        if [ -d "$script_dir/$dir" ] && [ "$dir" != ".git" ]; then
             cp -rv "$script_dir/$dir" "$dest_dir"
         else
             echo "Directory $dir not found in $script_dir"
