@@ -1,3 +1,4 @@
+export EDITOR=$(which vi)
 alias bye=logout
 alias h=history
 alias jobs='jobs -l'

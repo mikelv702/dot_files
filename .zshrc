@@ -4,8 +4,9 @@ if [ -f ~/.motd ]; then
     cat ~/.motd
     echo ""  # Add a blank line after the MOTD for better readability
 fi
-
-source $HOME/.aliases
+for aliasfile in $HOME/.aliases*; do
+    [ -f "$aliasfile" ] && source "$aliasfile"
+done
 source $HOME/.bash_functions
 # Default Prompt
 PS1="%F{green}[%B%n:%m%b] %~%f >"
