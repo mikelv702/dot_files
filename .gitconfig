@@ -1,0 +1,10 @@
+[user]
+
+name = Michael Hall
+email = michael@rubberduck-labs.com
+
+[alias]
+
+co = checkout
+br = branch
+ci = commit

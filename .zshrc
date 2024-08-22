@@ -9,35 +9,31 @@ for aliasfile in $HOME/.aliases*; do
 done
 source $HOME/.bash_functions
 # Default Prompt
-PS1="%F{green}[%B%n:%m%b] %~%f >"
-RPROMPT="%t"
-
-set_red_prompt_background () {
-  if [[ ${(%):-%M} = *PROD* ]]; then
-    PS1="%F{green}%K{red}PROD%k [%B%n:%m%b] %~%f>"
-  else
-    PS1="%F{green}[%B%n:%m%b]%(3~|.../%2~|%~)>"
-  fi
-}
-
-typeset -a precmd_functions
-precmd_functions+=(set_red_prompt_background)
-
-# Git Stuff
-
+# Load version control information
 autoload -Uz vcs_info
-precmd_vcs_info() { vcs_info }
-setopt prompt_subst
-precmd_functions+=( precmd_vcs_info )
-zstyle ':vcs_info:git:*' formats '%b'
-set_git_branch () {
-  if [[ ${vcs_info_msg_0_} != "" ]]; then
-    RPROMPT='%t (${vcs_info_msg_0_})'
-  else
-    RPROMPT='%t'
+precmd() { vcs_info }
+
+# Format the vcs_info_msg_0_ variable
+zstyle ':vcs_info:git:*' formats ' %B%F{magenta}(%b)%f'
+
+# Function to truncate path
+truncated_pwd() {
+  local pwd=$(pwd)
+  local home=$HOME
+  local size=${#pwd}
+  local max_size=30
+  local offset=$((size - max_size))
+  if [[ $size -gt $max_size ]]; then
+    pwd="...${pwd:$offset:$max_size}"
   fi
+  if [[ $pwd = "$home" ]]; then
+    pwd="~"
+  elif [[ $pwd = "$home/"* ]]; then
+    pwd="~${pwd:$((${#home}))}"
+  fi
+  echo "$pwd"
 }
 
-precmd_functions+=(set_git_branch)
-
-
+# Set up the prompt
+setopt PROMPT_SUBST
+PROMPT='%B%F{green}%n@%m%f%b:%F{blue}$(truncated_pwd)%f${vcs_info_msg_0_} %B%F{red}❯%F{yellow}❯%F{green}❯%f%b '

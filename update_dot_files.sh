@@ -20,7 +20,7 @@ copy_dot_files() {
 copy_directories() {
     echo "Copying directories..."
     # Add directories to this array as needed
-    directories=(".vim")
+    directories=(".vim" ".ssh")
     
     for dir in "${directories[@]}"; do
         if [ -d "$script_dir/$dir" ] && [ "$dir" != ".git" ]; then

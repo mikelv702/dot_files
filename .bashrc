@@ -30,16 +30,37 @@ alias log=logout
 alias cls=clear
 alias edit=$EDITOR
 
-## Append to history file; do not overwrite
-shopt -s histappend
+# Function to get Git branch
+git_branch() {
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
 
-## Prevent accidental overwrites when using IO redirection
-set -o noclobber
+# Function to truncate path
+truncated_pwd() {
+  local pwd=$(pwd)
+  local home=$HOME
+  local size=${#pwd}
+  local max_size=30
+  local offset=$((size - max_size))
+  if [[ $size -gt $max_size ]]; then
+    pwd="...${pwd:$offset:$max_size}"
+  fi
+  if [[ $pwd = "$home" ]]; then
+    pwd="~"
+  elif [[ $pwd = "$home/"* ]]; then
+    pwd="~${pwd:${#home}}"
+  fi
+  echo "$pwd"
+}
 
-## Set the prompt to display the current git branch
-## and use pretty colors
-export PS1='$(git branch &>/dev/null; if [ $? -eq 0 ]; then \
-echo "\[\e[1m\]\u@\h\[\e[0m\]: \w [\[\e[34m\]$(git branch | grep ^* | sed s/\*\ //)\[\e[0m\]\
-$(echo `git status` | grep "nothing to commit" > /dev/null 2>&1; if [ "$?" -ne "0" ]; then \
-echo "\[\e[1;31m\]*\[\e[0m\]"; fi)] \$ "; else \
-echo "\[\e[1m\]\u@\h\[\e[0m\]: \w \$ "; fi )'
+# Set up colors
+GREEN="\[\033[0;32m\]"
+BLUE="\[\033[0;34m\]"
+MAGENTA="\[\033[0;35m\]"
+RED="\[\033[0;31m\]"
+YELLOW="\[\033[0;33m\]"
+RESET="\[\033[0m\]"
+BOLD="\[\033[1m\]"
+
+# Set up the prompt
+PS1="${BOLD}${GREEN}\u@\h${RESET}:${BLUE}\$(truncated_pwd)${MAGENTA}\$(git_branch)${RESET} ${BOLD}${RED}❯${YELLOW}❯${GREEN}❯${RESET} "
