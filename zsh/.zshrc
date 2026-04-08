@@ -3,6 +3,12 @@
 # PATH
 export PATH="$HOME/.local/bin:$HOME/.claude/local/bin:$PATH"
 
+# Rust
+export RUST_BACKTRACE=1
+if [[ -f "$HOME/.cargo/env" ]]; then
+    source "$HOME/.cargo/env"
+fi
+
 if [ -f ~/.motd ]; then
     cat ~/.motd
     echo ""  # Add a blank line after the MOTD for better readability

@@ -17,3 +17,11 @@ alias gs="git status"
 alias gc="git commit -m"
 alias ga="git add"
 alias gp="git push"
+
+# Rust/Cargo
+alias cb="cargo build"
+alias cr="cargo run"
+alias ct="cargo test"
+alias cc="cargo check"
+alias cf="cargo fmt"
+alias ccl="cargo clippy"
