@@ -1,12 +1,23 @@
 # My ZSHRC file
 
+# Kiro CLI pre block. Keep at the top of this file.
+[[ -f "${HOME}/.local/share/kiro-cli/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/.local/share/kiro-cli/shell/zshrc.pre.zsh"
+
 # PATH
-export PATH="$HOME/.local/bin:$HOME/.claude/local/bin:$PATH"
+export PATH="$HOME/.local/share/mise/shims:$HOME/.local/bin:$HOME/.claude/local/bin:$PATH"
 
 # Rust
-export RUST_BACKTRACE=1
+# export RUST_BACKTRACE=1
 if [[ -f "$HOME/.cargo/env" ]]; then
     source "$HOME/.cargo/env"
+fi
+
+if [[ -d "$HOME/.aim" ]]; then
+    PATH="$HOME/.aim/mcp-servers:$PATH"
+fi
+
+if [[ -d "$HOME/.toolbox/bin" ]]; then
+    PATH="$HOME/.toolbox/bin:$PATH"
 fi
 
 if [ -f ~/.motd ]; then
@@ -21,7 +32,7 @@ done
 
 # Load custom shell functions
 for functionfile in $HOME/bash_functions/*; do
-    [ -f "$aliasfile" ] && source "$aliasfile"
+    [ -f "$functionfile" ] && source "$functionfile"
 done
 
 
@@ -58,3 +69,6 @@ truncated_pwd() {
 setopt PROMPT_SUBST
 PROMPT='%B%F{green}%n@%m%f%b:%F{blue}$(truncated_pwd)%f${vcs_info_msg_0_} %B%F{red}❯%F{yellow}❯%F{green}❯%f%b '
 # if you wish to use IMDS set AWS_EC2_METADATA_DISABLED=false
+
+# Kiro CLI post block. Keep at the bottom of this file.
+[[ -f "${HOME}/.local/share/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/.local/share/kiro-cli/shell/zshrc.post.zsh"
