@@ -1,7 +1,21 @@
+# My BashRC File
 
-if [ -f ~/.aliases ]; then
-    . ~/.aliases
+if [ -f ~/.motd ]; then
+    cat ~/.motd
+    echo ""  # Add a blank line after the MOTD for better readability
 fi
+
+# Load Aliases
+for aliasfile in $HOME/.aliases*; do
+    [ -f "$aliasfile" ] && source "$aliasfile"
+done
+
+# Load custom shell functions
+for functionfile in $HOME/bash_functions/*; do
+    [ -f "$aliasfile" ] && source "$aliasfile"
+done
+
+
 
 ## Which pager to use.
 export PAGER=less
@@ -18,17 +32,7 @@ export ORGANIZATION="Rubber Duck Development LLC"
 ## Enables displaying colors in the terminal
 export TERM=xterm-color
 
-## If this is an interactive console, disable messaging
-#tty -s && mesg n
 
-## Aliases
-alias bye=logout
-alias h=history
-alias jobs='jobs -l'
-alias lf='ls -algF'
-alias log=logout
-alias cls=clear
-alias edit=$EDITOR
 
 # Function to get Git branch
 git_branch() {
@@ -63,4 +67,4 @@ RESET="\[\033[0m\]"
 BOLD="\[\033[1m\]"
 
 # Set up the prompt
-PS1="${BOLD}${GREEN}\u@\h${RESET}:${BLUE}\$(truncated_pwd)${MAGENTA}\$(git_branch)${RESET} ${BOLD}${RED}❯${YELLOW}❯${GREEN}❯${RESET} "
+PS1="${BOLD}${GREEN}\u@\h${RESET}:${BLUE}\$(truncated_pwd)${MAGENTA}\$(git_branch)${RESET} ${BOLD}${RED}❯${YELLOW}❯${GREEN}❯${RESET} "autoload -Uz compinit && compinit

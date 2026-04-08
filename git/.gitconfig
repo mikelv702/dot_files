@@ -31,5 +31,8 @@ autocrlf = input
 [transfer]
 fsckobjects = true
 
+[includeIf "gitdir:/workspace/"]
+  path = .gitconfig-aws
+
 [includeIf "gitdir:~/projects/"]
 path = ~/.gitconfig-personal

@@ -13,11 +13,22 @@ if [ -f ~/.motd ]; then
     cat ~/.motd
     echo ""  # Add a blank line after the MOTD for better readability
 fi
+
+# Load Aliases
 for aliasfile in $HOME/.aliases*; do
     [ -f "$aliasfile" ] && source "$aliasfile"
 done
-source $HOME/.bash_functions
+
+# Load custom shell functions
+for functionfile in $HOME/bash_functions/*; do
+    [ -f "$aliasfile" ] && source "$aliasfile"
+done
+
+
+
 # Default Prompt
+
+
 # Load version control information
 autoload -Uz vcs_info
 precmd() { vcs_info }
@@ -46,3 +57,4 @@ truncated_pwd() {
 # Set up the prompt
 setopt PROMPT_SUBST
 PROMPT='%B%F{green}%n@%m%f%b:%F{blue}$(truncated_pwd)%f${vcs_info_msg_0_} %B%F{red}❯%F{yellow}❯%F{green}❯%f%b '
+# if you wish to use IMDS set AWS_EC2_METADATA_DISABLED=false
