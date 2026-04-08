@@ -1,10 +1,35 @@
-[user]
-
-name = Michael Hall
-email = michael@rubberduck-labs.com
-
 [alias]
-
 co = checkout
 br = branch
 ci = commit
+
+[init]
+defaultBranch = main
+
+[pull]
+rebase = true
+
+[push]
+default = current
+autoSetupRemote = true
+
+[fetch]
+prune = true
+
+[rerere]
+enabled = true
+
+[diff]
+algorithm = histogram
+
+[merge]
+conflictstyle = zdiff3
+
+[core]
+autocrlf = input
+
+[transfer]
+fsckobjects = true
+
+[includeIf "gitdir:~/projects/"]
+path = ~/.gitconfig-personal
