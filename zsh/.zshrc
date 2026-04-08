@@ -1,5 +1,8 @@
 # My ZSHRC file
 
+# PATH
+export PATH="$HOME/.local/bin:$HOME/.claude/local/bin:$PATH"
+
 if [ -f ~/.motd ]; then
     cat ~/.motd
     echo ""  # Add a blank line after the MOTD for better readability
