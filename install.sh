@@ -7,7 +7,13 @@
 set -e
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PACKAGES=(shell bash zsh vim tmux git ssh claude)
+
+HOSTNAME=$(hostname -f 2>/dev/null || hostname)
+if [[ "$HOSTNAME" == *amazon.com* ]]; then
+    PACKAGES=(shell bash zsh vim tmux git ssh bash_functions)
+else
+    PACKAGES=(shell bash zsh vim tmux git ssh claude)
+fi
 
 # Check that stow is installed
 if ! command -v stow &> /dev/null; then
